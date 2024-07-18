@@ -27,9 +27,9 @@ const BookCard: React.FC<Props> = ({book, onPress}) => {
         <Text style={styles.description} numberOfLines={2}>
           {book.description}
         </Text>
-        <Text
-          style={styles.author}
-          numberOfLines={1}>{`author: ${book.authors[0]}`}</Text>
+        <Text style={styles.author} numberOfLines={1}>
+          {book.authors.join(', ')}
+        </Text>
       </View>
     </TouchableOpacity>
   );

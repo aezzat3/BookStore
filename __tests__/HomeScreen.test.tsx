@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from '@testing-library/react-native';
-import HomeScreen from '../src/screens/HomeScreen';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import HomeScreen from '../src/Screens/HomeScreen';
 
 const queryClient = new QueryClient();
 

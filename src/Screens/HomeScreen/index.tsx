@@ -15,12 +15,14 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<AppNavigatorParams>>();
   const [searchText, setSearchText] = useState('');
 
-  const {data, isLoading, error} = useQuery<Book[]>(['books'], () =>
-    fetchBooks(),
-  );
+  const {data, isLoading, error} = useQuery<Book[]>('books', fetchBooks);
 
-  const filteredData = data?.filter(item =>
-    item.volumeInfo.title.toLowerCase().includes(searchText.toLowerCase()),
+  const filteredData = data?.filter(
+    item =>
+      item.volumeInfo.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.volumeInfo.authors?.some((author: string) =>
+        author.toLowerCase().includes(searchText.toLowerCase()),
+      ),
   );
 
   if (isLoading) {
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     margin: 20,
     borderRadius: 8,
+    padding: 10,
   },
   item: {
     padding: 16,
