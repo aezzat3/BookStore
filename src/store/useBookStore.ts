@@ -1,24 +1,19 @@
-import create from 'zustand';
-
-type Book = {
-  id: string;
-  title: string;
-  author: string;
-  description: string;
-  coverImage: string;
-};
+import { create } from 'zustand';
+import { Book } from '../types';
 
 type Store = {
   favoriteBooks: Book[];
+  books: Book[];
   addFavorite: (book: Book) => void;
   removeFavorite: (bookId: string) => void;
 };
 
 const useBookStore = create<Store>(set => ({
   favoriteBooks: [],
+  books: [],
   addFavorite: book =>
     set(state => ({
-      favoriteBooks: [...state.favoriteBooks, book],
+      favoriteBooks: [...state.favoriteBooks, { ...book, isFavorite: true }],
     })),
   removeFavorite: bookId =>
     set(state => ({

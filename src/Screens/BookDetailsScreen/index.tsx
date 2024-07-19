@@ -1,49 +1,36 @@
 import React from 'react';
-import {View, Text, Image, Button, StyleSheet} from 'react-native';
-import {useRoute} from '@react-navigation/native';
-import useBookStore from '../../store/useBookStore';
+import {Text, Image, StyleSheet} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {AppNavigatorParams} from '../../navigation/AppNavigator';
+import {calcFontWeight, calcWidth} from '../../utils/scale';
+import FastImage from 'react-native-fast-image';
 
 const BookDetailsScreen = () => {
-  const route = useRoute();
-  const {book} = route.params;
-  const {addFavorite, removeFavorite, favoriteBooks} = useBookStore(
-    state => state,
-  );
-  const isFavorite = favoriteBooks.some(favBook => favBook.id === book.id);
+  const {
+    params: {book},
+  } = useRoute<RouteProp<AppNavigatorParams, 'BOOK_DETAILS'>>();
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={{uri: book.volumeInfo.imageLinks.thumbnail}}
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <FastImage
+        resizeMode={FastImage.resizeMode.cover}
+        source={{
+          uri: book.volumeInfo.imageLinks.thumbnail.replace('http', 'https'),
+        }}
         style={styles.image}
       />
       <Text style={styles.title}>{book.volumeInfo.title}</Text>
       <Text style={styles.author}>{book.volumeInfo.authors.join(', ')}</Text>
       <Text style={styles.description}>{book.volumeInfo.description}</Text>
-      <Button
-        title={isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
-        onPress={() => {
-          if (isFavorite) {
-            removeFavorite(book.id);
-          } else {
-            addFavorite({
-              id: book.id,
-              title: book.volumeInfo.title,
-              author: book.volumeInfo.authors.join(', '),
-              description: book.volumeInfo.description,
-              coverImage: book.volumeInfo.imageLinks.thumbnail,
-            });
-          }
-        }}
-      />
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: calcWidth(16),
   },
   image: {
     width: '100%',
@@ -51,17 +38,17 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   title: {
-    fontSize: 24,
+    fontSize: calcFontWeight(24),
     fontWeight: 'bold',
-    marginVertical: 8,
+    marginVertical: calcWidth(8),
   },
   author: {
-    fontSize: 18,
+    fontSize: calcFontWeight(18),
     color: 'gray',
   },
   description: {
-    fontSize: 16,
-    marginVertical: 8,
+    fontSize: calcFontWeight(16),
+    marginBottom: calcWidth(50),
   },
 });
 

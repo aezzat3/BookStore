@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, Platform, TextInput} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {FlatList, StyleSheet, Platform, TextInput, View} from 'react-native';
 import {useQuery} from 'react-query';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Book} from '../../types';
@@ -10,6 +10,7 @@ import {AppNavigatorParams} from '../../navigation/AppNavigator';
 import Spinner from '../../components/Spinner';
 import ErrorComponent from '../../components/ErrorComponent';
 import {COLORS} from '../../common/Colors';
+import {calcHeight, calcWidth} from '../../utils/scale';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<AppNavigatorParams>>();
@@ -25,6 +26,13 @@ const HomeScreen = () => {
       ),
   );
 
+  const handlePress = useCallback(
+    (book: Book) => {
+      navigation.navigate(BOOK_DETAILS, {book});
+    },
+    [navigation],
+  );
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -33,10 +41,10 @@ const HomeScreen = () => {
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Search for books"
+        placeholder="Search for book"
         value={searchText}
         onChangeText={setSearchText}
       />
@@ -46,33 +54,42 @@ const HomeScreen = () => {
         keyExtractor={item => `item--${item.id}`}
         data={filteredData}
         renderItem={({item}) => (
-          <BookCard
-            book={item.volumeInfo}
-            onPress={() => navigation.navigate(BOOK_DETAILS, {book: item})}
-          />
+          <BookCard book={item} onPress={() => handlePress(item)} />
         )}
         onEndReachedThreshold={Platform.OS === 'android' ? 0.2 : 0}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: calcWidth(20),
+  },
   contentContainer: {
-    padding: 20,
+    paddingBottom: calcHeight(20),
   },
   input: {
-    height: 40,
+    height: calcHeight(40),
     borderColor: COLORS.gray,
     borderWidth: 0.3,
-    margin: 20,
+    marginVertical: calcHeight(10),
     borderRadius: 8,
-    padding: 10,
+    paddingHorizontal: calcWidth(10),
   },
   item: {
-    padding: 16,
+    padding: calcWidth(16),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.gray,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  author: {
+    fontSize: 14,
+    color: 'gray',
   },
 });
 

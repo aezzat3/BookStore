@@ -24,7 +24,13 @@ const AppNavigator = () => {
           component={BottomTabNavigator}
           options={{headerShown: false}}
         />
-        <Stack.Screen name={BOOK_DETAILS} component={BookDetailsScreen} />
+        <Stack.Screen
+          name={BOOK_DETAILS}
+          options={{
+            title: 'Book Details',
+          }}
+          component={BookDetailsScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
