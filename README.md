@@ -1,6 +1,13 @@
-Certainly! Here’s a sample README file that includes setup instructions, an explanation of the architecture, and any assumptions made for your project. Adjust the specifics according to your actual project setup and requirements.
+
+<img src="https://github.com/user-attachments/assets/1d0b0a91-e86c-4b26-8bb4-f5a5ce6c8b14"  height="500">
+<img src="https://github.com/user-attachments/assets/562e127d-a20b-46de-93be-9a295cb42e6e"  height="500">
+<img src="https://github.com/user-attachments/assets/45cf38b2-9cff-4446-99c5-7df5d9b22f6a"  height="500">
+
+
 
 ---
+
+
 
 # BookStore Project
 
@@ -73,19 +80,6 @@ The **BookStore** project is a React Native application that allows users to bro
 
    Follow the instructions from the development server to run the app on an emulator or physical device.
 
-### Running Tests
-
-1. **Run Unit and Integration Tests**
-
-   ```bash
-   npm test
-   ```
-
-   or, if you use yarn:
-
-   ```bash
-   yarn test
-   ```
 
 ### Code Formatting and Linting
 
