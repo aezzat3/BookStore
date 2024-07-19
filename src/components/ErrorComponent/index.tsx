@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {COLORS} from '../../common/Colors';
 
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorComponent;
+export default memo(ErrorComponent);

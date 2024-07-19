@@ -27,9 +27,7 @@ const BookCard: React.FC<Props> = ({book, onPress}) => {
       <FastImage
         resizeMode={FastImage.resizeMode.cover}
         source={{
-          uri:
-            book.volumeInfo.imageLinks.thumbnail.replace('http', 'https') ||
-            IMAGE_PLACEHOLDER,
+          uri: book.volumeInfo.imageLinks.thumbnail || IMAGE_PLACEHOLDER,
         }}
         style={styles.image}
       />

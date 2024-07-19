@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 import {COLORS} from '../../common/Colors';
 
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Spinner;
+export default memo(Spinner);

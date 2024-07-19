@@ -16,7 +16,7 @@ const BookDetailsScreen = () => {
       <FastImage
         resizeMode={FastImage.resizeMode.cover}
         source={{
-          uri: book.volumeInfo.imageLinks.thumbnail.replace('http', 'https'),
+          uri: book.volumeInfo.imageLinks.thumbnail,
         }}
         style={styles.image}
       />
